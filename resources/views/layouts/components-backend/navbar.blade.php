@@ -231,13 +231,17 @@
               </span>
             </a>
             <div class="grid my-3">
-              <button class="btn btn-primary flex items-center justify-center">
-                <svg class="pc-icon me-2 w-[22px] h-[22px]">
-                  <use xlink:href="#custom-logout-1-outline"></use>
-                </svg>
-                Logout
-              </button>
-            </div>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-primary flex items-center justify-center w-full">
+            <svg class="pc-icon me-2 w-[22px] h-[22px]">
+                <use xlink:href="#custom-logout-1-outline"></use>
+            </svg>
+            Logout
+        </button>
+    </form>
+</div>
+
           </div>
         </div>
       </div>

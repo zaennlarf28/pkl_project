@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Middleware\Admin;
+use App\Http\Middleware\Guru;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,8 +24,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // });
 
 Route::group(['prefix'=>'admin', 'as' => 'backend.', 'middleware'=>['auth', Admin::class]], function () {
-    Route::get('/', [BackendController::class, 'index']);
+    Route::get('/', [BackendController::class, 'index'])->name('dashboard');
     // crud
     Route::resource('/users', UserController::class);
+});
 
+Route::group(['prefix'=>'guru', 'as' => 'guru.', 'middleware'=>['auth', Guru::class]], function () {
+    Route::get('/', [GuruController::class, 'index'])->name('dashboard');
 });

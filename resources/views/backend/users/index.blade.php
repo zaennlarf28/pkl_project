@@ -26,7 +26,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->isAdmin ? 'Admin' : 'Member' }}</td>
+                            <td>{{ $user->role_text }}</td>
                             <td>
                                 <a href="{{ route('backend.users.edit', $user) }}"
                                     class="btn btn-sm btn-warning">Edit</a>
