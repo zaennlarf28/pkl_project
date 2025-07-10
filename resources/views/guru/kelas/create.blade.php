@@ -15,6 +15,11 @@
                     <input type="text" name="nama_kelas" id="nama_kelas" class="form-control" required>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Kode Kelas</label>
+                    <input type="text" class="form-control" value="Akan dibuat otomatis" disabled>
+                </div>
+
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('guru.kelas.index') }}" class="btn btn-secondary me-2">Cancel</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>

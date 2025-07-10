@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->date('deadline');
+            $table->enum('tipe', ['individu', 'kelompok'])->default('individu');
             $table->timestamps();
 
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');

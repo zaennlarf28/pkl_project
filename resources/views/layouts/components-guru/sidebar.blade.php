@@ -13,13 +13,7 @@
                 <!-- Dashboard 2: User Icon -->
                 <a class="nav-link" href="{{ route('guru.kelas.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                    Kelas Saya
-                </a>
-
-                <!-- Dashboard 2: User Icon -->
-                <a class="nav-link" href="{{ route('guru.kelas.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                    Daftar Tugas
+                    Kelas & Daftar Tugas
                 </a>
             </div>
         </div>
