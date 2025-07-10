@@ -1,16 +1,22 @@
 <?php
+
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Alert;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::latest()->get();
+
+        // Tampilkan konfirmasi hapus
+        confirmDelete('Hapus Data!', 'Apakah Anda yakin ingin menghapus user ini?');
+
         return view('backend.users.index', compact('users'));
     }
 
@@ -34,7 +40,8 @@ class UserController extends Controller
             'isAdmin'  => $request->has('isAdmin'),
         ]);
 
-        return redirect()->route('backend.users.index')->with('success', 'User created successfully.');
+        toast('User berhasil dibuat', 'success');
+        return redirect()->route('backend.users.index');
     }
 
     public function edit(User $user)
@@ -52,18 +59,22 @@ class UserController extends Controller
 
         $user->name  = $request->name;
         $user->email = $request->email;
+
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
+
         $user->isAdmin = $request->has('isAdmin');
         $user->save();
 
-        return redirect()->route('backend.users.index')->with('success', 'User updated successfully.');
+        toast('User berhasil diperbarui', 'success');
+        return redirect()->route('backend.users.index');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('backend.users.index')->with('success', 'User deleted successfully.');
+        toast('User berhasil dihapus', 'success');
+        return redirect()->route('backend.users.index');
     }
 }

@@ -1,6 +1,8 @@
 @extends('layouts.backend')
 @section('styles')
-<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">@endsection
+@endsection
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+
 @section('content')
 <div class="container-fluid">
     <div class="card shadow-sm">
@@ -56,8 +58,6 @@
 <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#userTable').DataTable();
-    });
+   new DataTable('#userTable');
 </script>
 @endpush
