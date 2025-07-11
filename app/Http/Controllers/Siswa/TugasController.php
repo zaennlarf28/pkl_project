@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\Siswa;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Tugas;
+use App\Models\PengumpulanTugas;
+use Illuminate\Support\Facades\Auth;
+
+class TugasController extends Controller
+{
+    public function show($id)
+{
+    $tugas = \App\Models\Tugas::findOrFail($id);
+    return view('siswa.tugas_detail', compact('tugas'));
+}
+
+public function kumpulkan(Request $request, $id)
+{
+    $request->validate([
+        'file' => 'required|file|mimes:pdf,doc,docx,zip',
+        'catatan' => 'nullable|string',
+    ]);
+
+    $path = $request->file('file')->store('tugas_siswa');
+
+    \App\Models\PengumpulanTugas::createPengumpulanTugas::create([
+        'tugas_id' => $id,
+        'siswa_id' => Auth::id(),
+        'file' => $path,
+        'catatan' => $request->input('catatan'),
+        'status' => 'dikirim',
+    ]);
+
+    return back()->with('success', 'Tugas berhasil dikumpulkan.');
+}
+
+
+}

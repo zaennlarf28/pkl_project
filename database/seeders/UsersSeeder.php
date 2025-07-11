@@ -14,37 +14,24 @@ class UsersSeeder extends Seeder
         DB::table('users')->delete();
 
         User::create([
-            'name'     => 'Admin',
-            'email'    => 'admin@gmail.com',
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('rahasia'),
-            'isAdmin'  => 1,
+            'role' => 'admin',
         ]);
 
         User::create([
-            'name'     => 'Pak Ute',
-            'email'    => 'ute@gmail.com',
+            'name' => 'Guru',
+            'email' => 'guru@gmail.com',
             'password' => bcrypt('rahasia'),
-            'isAdmin'  => 2,
+            'role' => 'guru',
         ]);
 
         User::create([
-            'name'     => 'Pak candra',
-            'email'    => 'candra@gmail.com',
+            'name' => 'Siswa',
+            'email' => 'siswa@gmail.com',
             'password' => bcrypt('rahasia'),
-            'isAdmin'  => 3,
-        ]);
-        User::create([
-            'name'     => 'Pak Mulki',
-            'email'    => 'mulki@gmail.com',
-            'password' => bcrypt('rahasia'),
-            'isAdmin'  => 4,
-        ]);
-
-        User::create([
-            'name'     => 'Siswa',
-            'email'    => 'siswa@gmail.com',
-            'password' => bcrypt('rahasia'),
-            'isAdmin'  => 0,
+            'role' => 'siswa',
         ]);
 
     }

@@ -84,5 +84,14 @@ public function update(Request $request, $id)
     return redirect()->route('guru.kelas.index')->with('success', 'Kelas berhasil dihapus.');
 }
 
+    public function lihatPermintaan()
+    {
+        $kelasSaya = Kelas::where('guru_id', Auth::id())
+            ->with('permintaanJoin.siswa')
+            ->get();
+
+        return view('guru.permintaan_join', compact('kelasSaya'));
+    }
+
 }
 

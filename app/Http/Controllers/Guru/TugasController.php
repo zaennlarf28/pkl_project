@@ -20,6 +20,7 @@ class TugasController extends Controller
     {
         $request->validate([
             'judul' => 'required',
+            'perintah' => 'required',
             'deskripsi' => 'required',
             'deadline' => 'required|date',
             'tipe' => 'required|in:individu,kelompok',
@@ -28,6 +29,7 @@ class TugasController extends Controller
         Tugas::create([
             'kelas_id' => $kelas->id,
             'judul' => $request->judul,
+            'perintah' => $request->perintah,
             'deskripsi' => $request->deskripsi,
             'deadline' => $request->deadline,
             'tipe' => $request->tipe,
@@ -47,6 +49,7 @@ class TugasController extends Controller
     {
         $request->validate([
             'judul' => 'required',
+            'perintah' => 'required',
             'deskripsi' => 'required',
             'deadline' => 'required|date',
             'tipe' => 'required|in:individu,kelompok',
@@ -54,6 +57,7 @@ class TugasController extends Controller
 
         $tugas->update([
             'judul' => $request->judul,
+            'perintah' => $request->perintah,
             'deskripsi' => $request->deskripsi,
             'deadline' => $request->deadline,
             'tipe' => $request->tipe,

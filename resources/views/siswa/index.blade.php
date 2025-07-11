@@ -23,36 +23,41 @@
     </section><!-- /Hero Section -->
 
     <!-- Featured Services Section -->
-     <section id="services" class="services section light-background">
-  <div class="container section-title" data-aos="fade-up">
-    <span>Kelas</span>
-    <h2>Kelas Saya</h2>
-    <p>Berikut daftar kelas yang telah kamu ikuti</p>
-  </div>
+    <section id="featured-services" class="featured-services section">
 
-  <div class="container">
-    <div class="row gy-4">
-      @forelse($kelasSaya as $kelas)
-        <div class="col-lg-4 col-md-6" data-aos="fade-up">
-          <div class="service-item position-relative">
-            <div class="icon">
-              <i class="bi bi-easel"></i>
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <div class="icon"><i class="bi bi-activity icon"></i></div>
+              <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
+              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
             </div>
-            <a href="{{ route('siswa.kelas.show', $kelas->id) }}" class="stretched-link">
-              <h3>{{ $kelas->nama_kelas }}</h3>
-            </a>
-            <p>Bergabung sejak {{ $kelas->pivot->created_at->format('d M Y') }}</p>
-          </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <div class="icon"><i class="bi bi-bounding-box-circles icon"></i></div>
+              <h4><a href="" class="stretched-link">Sed ut perspici</a></h4>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
+              <h4><a href="" class="stretched-link">Magni Dolores</a></h4>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+            </div>
+          </div><!-- End Service Item -->
+
         </div>
-      @empty
-        <div class="col-12 text-center">
-          <p>Kamu belum bergabung di kelas manapun.</p>
-        </div>
-      @endforelse
-    </div>
-  </div>
-</section>
-    <!-- /Featured Services Section -->
+
+      </div>
+
+    </section><!-- /Featured Services Section -->
 
     <!-- About Section -->
     <section id="about" class="about section">

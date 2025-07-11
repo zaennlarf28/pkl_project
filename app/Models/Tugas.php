@@ -13,6 +13,7 @@ class Tugas extends Model
 
     protected $fillable = [
         'judul',
+        'perintah',
         'deskripsi',
         'kelas_id',
         'deadline',

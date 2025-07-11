@@ -47,7 +47,7 @@
                                             <div class="d-flex justify-content-between align-items-start">
                                                 <div>
                                                     <strong>{{ $tugas->judul }}</strong><br>
-                                                    <small>{{ $tugas->deskripsi }}<br>Deadline: {{ $tugas->deadline }}<br>Tipe Tugas : {{ $tugas->tipe }}</small>
+                                                    <small>Perintah : {{ $tugas->perintah }}<br>Deskripsi : {{ $tugas->deskripsi }}<br>Deadline : {{ $tugas->deadline }}<br>Tipe Tugas : {{ $tugas->tipe }}</small>
                                                 </div>
                                                 <form action="" method="POST" onsubmit="return confirm('Yakin hapus tugas ini?')">
                                                     @csrf
@@ -63,10 +63,13 @@
                                 @endif
                             </td>
                             <td>
-                                <form action="{{ route('guru.tugas.store', $item->id) }}" method="POST">
+                                <form action="{{ route('guru.tugas.store', ['kelas' => $item->id]) }}" method="POST">
                                     @csrf
                                     <div class="mb-1">
                                         <input type="text" name="judul" class="form-control form-control-sm" placeholder="Judul" required>
+                                    </div>
+                                    <div class="mb-1">
+                                        <input type="text" name="perintah" class="form-control form-control-sm" placeholder="Perintah" required>
                                     </div>
                                     <div class="mb-1">
                                         <input type="text" name="deskripsi" class="form-control form-control-sm" placeholder="Deskripsi" required>

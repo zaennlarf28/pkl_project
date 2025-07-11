@@ -31,13 +31,14 @@ class UserController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
+            'role'     => 'required|in:admin,guru,siswa',
         ]);
 
         User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'isAdmin'  => $request->has('isAdmin'),
+            'role'     => $request->role,
         ]);
 
         toast('User berhasil dibuat', 'success');
@@ -55,16 +56,17 @@ class UserController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6|confirmed',
+            'role'     => 'required|in:admin,guru,siswa',
         ]);
 
         $user->name  = $request->name;
         $user->email = $request->email;
+        $user->role  = $request->role;
 
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
 
-        $user->isAdmin = $request->has('isAdmin');
         $user->save();
 
         toast('User berhasil diperbarui', 'success');

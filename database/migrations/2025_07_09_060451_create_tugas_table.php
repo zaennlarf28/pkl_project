@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('kelas_id');
             $table->string('judul');
+            $table->string('perintah');
             $table->text('deskripsi');
             $table->date('deadline');
             $table->enum('tipe', ['individu', 'kelompok'])->default('individu');

@@ -16,7 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'isAdmin',
+        'role',
     ];
 
     protected $hidden = [
@@ -33,14 +33,26 @@ class User extends Authenticatable
     }
 
     // 🟢 Tambahkan ini
+
     public function getRoleTextAttribute()
+{
+    return ucfirst($this->role);
+}
+
+    public function guru()
     {
-        return match ($this->isAdmin) {
-            1 => 'Admin',
-            2 => 'Guru',
-            3 => 'Guru',
-            4 => 'Guru',
-            default => 'Siswa',
-        };
+        return $this->hasOne(Guru::class);
     }
+
+    public function siswa()
+    {
+        return $this->hasOne(Siswa::class);
+    }
+
+    public function kelas()
+{
+    return $this->belongsToMany(Kelas::class, 'kelas_siswa', 'siswa_id', 'kelas_id')->withTimestamps();
+}
+
+
 }

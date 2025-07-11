@@ -29,9 +29,13 @@
                     <input type="password" name="password_confirmation" class="form-control" required>
                 </div>
 
-                <div class="form-check form-switch mb-3">
-                    <input class="form-check-input" type="checkbox" name="isAdmin" id="isAdmin">
-                    <label class="form-check-label" for="isAdmin">Admin</label>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                      <select name="role" id="role" class="form-select" required>
+                        <option value="admin" {{ old('role', $user->role ?? '') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="guru" {{ old('role', $user->role ?? '') == 'guru' ? 'selected' : '' }}>Guru</option>
+                        <option value="siswa" {{ old('role', $user->role ?? '') == 'siswa' ? 'selected' : '' }}>Siswa</option>
+                       </select>
                 </div>
 
                 <div class="d-flex justify-content-end">

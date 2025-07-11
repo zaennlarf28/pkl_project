@@ -18,16 +18,13 @@ class AuthenticatedSessionController extends Controller
 
             $user = Auth::user();
 
-            // Redirect berdasarkan isAdmin
-            if (in_array($user->isAdmin, [2, 3, 4])) {
-                return redirect()->intended('/guru');
-            } elseif ($user->isAdmin == 1) {
-                return redirect()->intended('/admin');
-            } elseif ($user->isAdmin == 0) {
-                return redirect()->intended('/murid');
-            }
-
-            return redirect('/');
+            if ($user->role === 'guru') {
+    return redirect()->intended('/guru');
+} elseif ($user->role === 'admin') {
+    return redirect()->intended('/admin');
+} elseif ($user->role === 'siswa') {
+    return redirect()->intended('/');
+};
         }
 
         return back()->withErrors([

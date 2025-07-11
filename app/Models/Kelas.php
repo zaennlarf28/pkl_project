@@ -23,11 +23,23 @@ class Kelas extends Model
         return $this->belongsTo(User::class, 'guru_id');
     }
 
+   public function siswa()
+{
+    return $this->belongsToMany(User::class, 'kelas_siswa', 'kelas_id', 'siswa_id')->withTimestamps();
+}
+
+    
     // Relasi: kelas punya banyak tugas
     public function tugas()
     {
         return $this->hasMany(Tugas::class);
     }
+
+    public function permintaanJoin()
+{
+    return $this->hasMany(PermintaanJoin::class);
+}
+
 
     
 

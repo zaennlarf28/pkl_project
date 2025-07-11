@@ -28,22 +28,21 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->role_text }}</td>
-                            <td>
-                                <a href="{{ route('backend.users.edit', $user) }}"
-                                    class="btn btn-sm btn-warning">Edit</a>
+                            <td>{{ ucfirst($user->role) }}</td>
+                           <td>
+    <a href="{{ route('backend.users.edit', $user) }}" class="btn btn-sm btn-warning">Edit</a>
 
-                                @if ($user->isAdmin == 1 && $loop->first)
-                                @else
-                                <form action="{{ route('backend.users.destroy', $user) }}" method="POST"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Delete this user?')">Delete</button>
-                                </form>
-                                @endif
-                            </td>
+    @if ($user->role == 'admin' && $loop->first)
+        {{-- Tidak bisa dihapus --}}
+    @else
+        <form action="{{ route('backend.users.destroy', $user) }}" method="POST" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this user?')">Delete</button>
+        </form>
+    @endif
+</td>
+
                         </tr>
                         @endforeach
                     </tbody>
