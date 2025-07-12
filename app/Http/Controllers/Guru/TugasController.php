@@ -6,10 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\Tugas;
+use App\Models\PengumpulanTugas;
 
 class TugasController extends Controller
 {
     // Tampilkan form tambah tugas (opsional)
+
+    public function index()
+    {
+        $kelas = Kelas::with('tugas')->where('guru_id', auth()->id())->get();
+        return view('guru.tugas.index', compact('kelas'));
+    }
+
     public function create(Kelas $kelas)
     {
         return view('guru.tugas.create', compact('kelas'));
@@ -39,38 +47,46 @@ class TugasController extends Controller
     }
 
     // Tampilkan form edit tugas
-    public function edit(Tugas $tugas)
-    {
-        return view('guru.tugas.edit', compact('tugas'));
-    }
+    public function edit($id)
+{
+    $tugas = Tugas::findOrFail($id);
+    return view('guru.tugas.edit', compact('tugas'));
+}
 
-    // Simpan hasil edit
-    public function update(Request $request, Tugas $tugas)
-    {
-        $request->validate([
-            'judul' => 'required',
-            'perintah' => 'required',
-            'deskripsi' => 'required',
-            'deadline' => 'required|date',
-            'tipe' => 'required|in:individu,kelompok',
-        ]);
+public function update(Request $request, $id)
+{
+    $tugas = Tugas::findOrFail($id);
+    $tugas->update($request->only(['judul', 'perintah', 'deskripsi', 'deadline', 'tipe']));
+    return redirect()->route('guru.tugas.index')->with('success', 'Tugas berhasil diperbarui.');
+}
 
-        $tugas->update([
-            'judul' => $request->judul,
-            'perintah' => $request->perintah,
-            'deskripsi' => $request->deskripsi,
-            'deadline' => $request->deadline,
-            'tipe' => $request->tipe,
-        ]);
+public function destroy($id)
+{
+    $tugas = Tugas::findOrFail($id);
+    $tugas->delete();
+    return back()->with('success', 'Tugas berhasil dihapus.');
+}
 
-        return redirect()->route('guru.kelas.index')->with('success', 'Tugas berhasil diperbarui.');
-    }
 
-    // Hapus tugas
-    public function destroy(Tugas $tugas)
-    {
-        $tugas->delete();
+    public function lihatPengumpulan($tugasId)
+{
+    $tugas = Tugas::with(['pengumpulan.siswa'])->findOrFail($tugasId);
+    return view('guru.tugas.pengumpulan', compact('tugas'));
+}
 
-        return redirect()->route('guru.kelas.index')->with('success', 'Tugas berhasil dihapus.');
-    }
+public function beriNilai(Request $request, $id)
+{
+    $request->validate([
+        'nilai' => 'required|integer|min:0|max:100'
+    ]);
+
+    $pengumpulan = \App\Models\PengumpulanTugas::findOrFail($id);
+    $pengumpulan->nilai = $request->nilai;
+    $pengumpulan->status = 'dinilai';
+    $pengumpulan->save();
+
+    return back()->with('success', 'Nilai berhasil diberikan.');
+}
+
+
 }

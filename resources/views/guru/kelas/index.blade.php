@@ -23,10 +23,9 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Kelas</th>
+                            <th>Mata Pelajaran</th>
                             <th>Guru</th>
                             <th>Kode Kelas</th>
-                            <th>Daftar Tugas</th>
-                            <th>Tambah Tugas</th>
                             <th>Aksi Kelas</th>
                         </tr>
                     </thead>
@@ -35,57 +34,10 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama_kelas }}</td>
+                            <td>{{ $item->mata_pelajaran }}</td>
                             <td>{{ $item->guru->name ?? '-' }}</td>
                             <td><span id="kode_{{ $item->id }}">{{ $item->kode_kelas }}</span>
                                 <button onclick="copyKode({{ $item->id }})">Copy</button>
-                            </td>
-                            <td>
-                                @if ($item->tugas->count())
-                                    <ul class="list-unstyled mb-0">
-                                        @foreach ($item->tugas as $tugas)
-                                        <li class="mb-1 border rounded p-2">
-                                            <div class="d-flex justify-content-between align-items-start">
-                                                <div>
-                                                    <strong>{{ $tugas->judul }}</strong><br>
-                                                    <small>Perintah : {{ $tugas->perintah }}<br>Deskripsi : {{ $tugas->deskripsi }}<br>Deadline : {{ $tugas->deadline }}<br>Tipe Tugas : {{ $tugas->tipe }}</small>
-                                                </div>
-                                                <form action="" method="POST" onsubmit="return confirm('Yakin hapus tugas ini?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-sm btn-outline-danger py-0 px-2">&times;</button>
-                                                </form>
-                                            </div>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    <em>Tidak ada tugas</em>
-                                @endif
-                            </td>
-                            <td>
-                                <form action="{{ route('guru.tugas.store', ['kelas' => $item->id]) }}" method="POST">
-                                    @csrf
-                                    <div class="mb-1">
-                                        <input type="text" name="judul" class="form-control form-control-sm" placeholder="Judul" required>
-                                    </div>
-                                    <div class="mb-1">
-                                        <input type="text" name="perintah" class="form-control form-control-sm" placeholder="Perintah" required>
-                                    </div>
-                                    <div class="mb-1">
-                                        <input type="text" name="deskripsi" class="form-control form-control-sm" placeholder="Deskripsi" required>
-                                    </div>
-                                    <div class="mb-1">
-                                        <input type="date" name="deadline" class="form-control form-control-sm" required>
-                                    </div>
-                                    <div class="mb-1">
-                                        <select name="tipe" class="form-control form-control-sm" required>
-                                          <option value="">-- Pilih Tipe Tugas --</option>
-                                          <option value="individu">Individu</option>
-                                          <option value="kelompok">Kelompok</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-sm btn-success w-100">Tambah</button>
-                                </form>
                             </td>
                             <td>
                                 <a href="{{ route('guru.kelas.edit', $item->id) }}" class="btn btn-sm btn-warning mb-1">Edit</a>

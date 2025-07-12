@@ -1,25 +1,40 @@
 @extends('layouts.guru')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid content-wrapper">
     <div class="card shadow-sm">
-        <div class="card-header bg-warning text-white">
-            <h5 class="mb-0">Edit Kelas</h5>
+        <div class="card-header">
+            <h4 class="mb-0">Edit Tugas</h4>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('guru.kelas.update', $kelas->id) }}">
+            <form action="{{ route('guru.tugas.update', $tugas->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-
                 <div class="mb-3">
-                    <label for="nama_kelas" class="form-label">Nama Kelas</label>
-                    <input type="text" name="nama_kelas" id="nama_kelas" class="form-control" value="{{ old('nama_kelas', $kelas->nama_kelas) }}" required>
+                    <label>Judul</label>
+                    <input type="text" name="judul" class="form-control" value="{{ $tugas->judul }}" required>
                 </div>
-
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('guru.kelas.index') }}" class="btn btn-secondary me-2">Cancel</a>
-                    <button type="submit" class="btn btn-warning">Update</button>
+                <div class="mb-3">
+                    <label>Perintah</label>
+                    <input type="text" name="perintah" class="form-control" value="{{ $tugas->perintah }}" required>
                 </div>
+                <div class="mb-3">
+                    <label>Deskripsi</label>
+                    <input type="text" name="deskripsi" class="form-control" value="{{ $tugas->deskripsi }}" required>
+                </div>
+                <div class="mb-3">
+                    <label>Deadline</label>
+                    <input type="date" name="deadline" class="form-control" value="{{ $tugas->deadline }}" required>
+                </div>
+                <div class="mb-3">
+                    <label>Tipe</label>
+                    <select name="tipe" class="form-control" required>
+                        <option value="individu" {{ $tugas->tipe == 'individu' ? 'selected' : '' }}>Individu</option>
+                        <option value="kelompok" {{ $tugas->tipe == 'kelompok' ? 'selected' : '' }}>Kelompok</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Perbarui</button>
+                <a href="{{ route('guru.tugas.index') }}" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>

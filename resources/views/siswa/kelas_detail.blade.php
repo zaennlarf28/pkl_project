@@ -2,18 +2,29 @@
 
 @section('content')
 <div class="container mt-4">
-    <h3>{{ $kelas->nama_kelas }}</h3>
+    <h3 class="mb-3">{{ $kelas->nama_kelas }}</h3>
     <p>Total Tugas: {{ $tugas->count() }}</p>
 
-    <ul class="list-group mt-3">
+    <div class="row mt-4">
         @forelse ($tugas as $t)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ $t->judul }}
-                <a href="{{ route('siswa.tugas.show', $t->id) }}" class="btn btn-sm btn-primary">Lihat</a>
-            </li>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm rounded-4 border-0 h-100">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{{ $t->judul }}</h5>
+                            <h7 class="card-title">{{ $t->mata_pelajaran }}</h7>
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{ route('siswa.tugas.show', $t->id) }}" class="btn btn-outline-primary btn-sm rounded-pill">Lihat Tugas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @empty
-            <li class="list-group-item">Belum ada tugas.</li>
+            <div class="col-12">
+                <div class="alert alert-info">Belum ada tugas.</div>
+            </div>
         @endforelse
-    </ul>
+    </div>
 </div>
 @endsection

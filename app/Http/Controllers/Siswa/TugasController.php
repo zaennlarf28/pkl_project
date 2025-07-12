@@ -10,22 +10,24 @@ use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
 {
+    
     public function show($id)
 {
-    $tugas = \App\Models\Tugas::findOrFail($id);
+    $tugas = \App\Models\Tugas::with('pengumpulan_tugas')->findOrFail($id);
     return view('siswa.tugas_detail', compact('tugas'));
 }
 
+
 public function kumpulkan(Request $request, $id)
 {
-    $request->validate([
-        'file' => 'required|file|mimes:pdf,doc,docx,zip',
-        'catatan' => 'nullable|string',
-    ]);
+    // $request->validate([
+    //     'file' => 'required|file|mimes:pdf,doc,docx,zip',
+    //     'catatan' => 'nullable|string',
+    // ]);
+    
+    $path = $request->file('file')->store('tugas_siswa', 'public');
 
-    $path = $request->file('file')->store('tugas_siswa');
-
-    \App\Models\PengumpulanTugas::createPengumpulanTugas::create([
+    \App\Models\PengumpulanTugas::create([
         'tugas_id' => $id,
         'siswa_id' => Auth::id(),
         'file' => $path,
@@ -34,7 +36,9 @@ public function kumpulkan(Request $request, $id)
     ]);
 
     return back()->with('success', 'Tugas berhasil dikumpulkan.');
+    
 }
+
 
 
 }

@@ -51,7 +51,7 @@ Route::group(['prefix'=>'guru', 'as' => 'guru.', 'middleware'=>['auth', Guru::cl
 
     // Kelas
     Route::resource('kelas', \App\Http\Controllers\Guru\KelasController::class);
-
+    Route::resource('tugas', \App\Http\Controllers\Guru\TugasController::class);
     // Tugas
     Route::get('kelas/{kelas}/tugas/create', [\App\Http\Controllers\Guru\TugasController::class, 'create'])->name('tugas.create');
     Route::post('kelas/{kelas}/tugas', [\App\Http\Controllers\Guru\TugasController::class, 'store'])->name('tugas.store');
@@ -59,6 +59,11 @@ Route::group(['prefix'=>'guru', 'as' => 'guru.', 'middleware'=>['auth', Guru::cl
     Route::get('/guru/tugas/{tugas}/edit', [TugasController::class, 'edit'])->name('guru.tugas.edit');
     Route::put('/guru/tugas/{tugas}', [TugasController::class, 'update'])->name('guru.tugas.update');
     Route::delete('/guru/tugas/{tugas}', [TugasController::class, 'destroy'])->name('guru.tugas.destroy');
+    Route::put('/tugas/pengumpulan/{id}/nilai', [TugasController::class, 'beriNilai'])->name('tugas.nilai');
+
+
+    Route::get('tugas/{tugas}/pengumpulan', [TugasController::class, 'lihatPengumpulan'])
+    ->name('tugas.pengumpulan');
 
     // permintaan join
     Route::get('/permintaan-join', [PermintaanJoinController::class, 'lihatPermintaan'])->name('permintaanJoin');
@@ -86,6 +91,7 @@ Route::middleware([
       // ✅ Route untuk lihat dan kumpulkan tugas
     Route::get('/tugas/{id}', [SiswaTugasController::class, 'show'])->name('tugas.show');
 Route::post('/tugas/{id}/kumpulkan', [SiswaTugasController::class, 'kumpulkan'])->name('tugas.kumpulkan');
+Route::post('/tugas/{id}/kumpul', [\App\Http\Controllers\Siswa\TugasController::class, 'kumpulkan'])->name('tugas.kumpul');
 
 });
 

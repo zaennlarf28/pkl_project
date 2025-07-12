@@ -34,7 +34,10 @@ class Siswa extends Model
 {
     return $this->belongsToMany(Kelas::class, 'kelas_siswa', 'siswa_id', 'kelas_id')->withTimestamps();
 }
-
+public function pengumpulan()
+{
+    return $this->hasMany(\App\Models\PengumpulanTugas::class);
+}
 
     public function permintaanJoin()
 {

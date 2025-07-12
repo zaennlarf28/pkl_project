@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_kelas');
             $table->unsignedBigInteger('guru_id');
+            $table->string('mata_pelajaran');
             $table->timestamps();
 
             $table->foreign('guru_id')->references('id')->on('users')->onDelete('cascade');

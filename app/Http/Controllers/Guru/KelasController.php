@@ -25,12 +25,14 @@ class KelasController extends Controller
 {
     $request->validate([
         'nama_kelas' => 'required',
+        'mata_pelajaran' => 'required',
     ]);
 
     $kode_kelas = strtoupper(Str::random(6)); // Contoh: 'XZP8LQ'
 
     Kelas::create([
         'nama_kelas' => $request->nama_kelas,
+        'mata_pelajaran' => $request->mata_pelajaran,
         'kode_kelas' => $kode_kelas,
         'guru_id' => Auth::id()
     ]);
@@ -60,10 +62,11 @@ public function update(Request $request, $id)
         abort(403, 'Anda tidak diizinkan mengubah kelas ini.');
     }
 
-    $request->validate(['nama_kelas' => 'required']);
+    $request->validate(['nama_kelas' => 'required', 'mata_pelajaran' => 'required']);
 
     $kelas->update([
         'nama_kelas' => $request->nama_kelas,
+        'mata_pelajaran' => $request->mata_pelajaran,
     ]);
 
     return redirect()->route('guru.kelas.index')->with('success', 'Kelas berhasil diupdate.');
